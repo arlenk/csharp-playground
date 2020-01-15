@@ -12,16 +12,18 @@ namespace DelegatesWithGenericsApp
             int[] intValues = { 1, 4, 5, 10, 20, 15, -5 };
             double[] doubleValues = { 1, 4.5, 5.5, 10, 20, 15, -5 };
 
-            int[] filteredIntValues = FilterArray(intValues, SimplePredicate);
+            Predicate<double> doublePredicate = new Predicate<double>(SimplePredicate<double>);
+
+            int[] filteredIntValues = FilterArray(intValues, SimplePredicate<int>);
             foreach (int i in filteredIntValues)
             {
                 Console.WriteLine("value: {0}", i);
             }
 
-            double[] filteredDoubleValues = FilterArray(doubleValues, SimplePredicate);
+            double[] filteredDoubleValues = FilterArray(doubleValues, doublePredicate);
             foreach (double i in filteredDoubleValues)
             {
-                Console.WriteLine("value: {0}", i);
+                Console.WriteLine("double value: {0}", i);
             }
         }
 
@@ -29,6 +31,7 @@ namespace DelegatesWithGenericsApp
         {
             return Convert.ToInt32(value) < 5;
         }
+        
 
         static T[] FilterArray<T>(T[] array, Predicate<T> test)
         {
